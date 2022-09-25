@@ -3,6 +3,7 @@ package com.vti.rk25finalexam.service.crud;
 import com.vti.rk25finalexam.common.Constants;
 import com.vti.rk25finalexam.entity.Account;
 import com.vti.rk25finalexam.entity.criteria.AccountCriteria;
+import com.vti.rk25finalexam.entity.dto.AccountDTO;
 import com.vti.rk25finalexam.repository.AccountRepository;
 import com.vti.rk25finalexam.service.QueryService;
 import com.vti.rk25finalexam.spec.filter.IntegerFilter;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.modelmapper.ModelMapper;
 
 import java.util.Optional;
 
@@ -19,13 +21,16 @@ public class AccountCrudServiceImpl implements AccountCrudService {
 
     private final AccountRepository accountRepository;
     private final QueryService<Account> queryService;
+    private  final ModelMapper modelMapper;
 
     public AccountCrudServiceImpl(AccountRepository accountRepository,
-                                  QueryService<Account> queryService) {
+                                  QueryService<Account> queryService, ModelMapper modelMapper) {
         this.accountRepository = accountRepository;
         this.queryService = queryService;
+        this.modelMapper = modelMapper;
     }
 
+    @Override
     public Optional<Account> getOne(Integer id) {
         return accountRepository.findById(id);
     }
@@ -43,7 +48,7 @@ public class AccountCrudServiceImpl implements AccountCrudService {
                     account.id(id);
                     account.isDeleted(Constants.IS_DELETED.TRUE);
                     accountRepository.save(account);
-                    return account;
+                    return save(account);
                 })
                 .orElse(null);
     }
