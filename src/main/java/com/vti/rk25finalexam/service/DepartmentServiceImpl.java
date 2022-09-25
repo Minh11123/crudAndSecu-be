@@ -1,10 +1,13 @@
 package com.vti.rk25finalexam.service;
 
 import com.vti.rk25finalexam.entity.Department;
+import com.vti.rk25finalexam.entity.criteria.DepartmentCriteria;
 import com.vti.rk25finalexam.entity.dto.DepartmentDTO;
 import com.vti.rk25finalexam.service.crud.AccountCrudService;
 import com.vti.rk25finalexam.service.crud.DepartmentCrudService;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,6 +45,11 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public DepartmentDTO delete(Integer id) {
+        return null;
+    }
+
+    @Override
+    public Page<DepartmentDTO> findAllByCriteria(DepartmentCriteria criteria, Pageable pageable) {
         return null;
     }
 
