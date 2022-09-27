@@ -12,10 +12,12 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Where;
 
 @Data
 @Entity
 @Table(name = "department")
+@Where(clause = "is_deleted = 0")
 public class Department extends CommonEntity {
 
     @Id

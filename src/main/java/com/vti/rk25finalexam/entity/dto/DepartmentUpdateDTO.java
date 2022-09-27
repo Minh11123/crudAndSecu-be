@@ -16,4 +16,6 @@ public class DepartmentUpdateDTO {
     private String type;
 
     private LocalDateTime createdDate;
+
+    private Integer isDeleted;
 }

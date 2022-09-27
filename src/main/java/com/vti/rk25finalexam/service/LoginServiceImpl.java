@@ -49,8 +49,9 @@ public class LoginServiceImpl implements LoginService {
                 )
         );
 
-        return accountCrudService.findByUsername(loginRequest.getUsername())
-                        .map(accountDTO -> modelMapper.map(accountDTO, LoginResponse.class))
+        return accountCrudService.findByUsername(
+                loginRequest.getUsername()
+        ).map(account -> modelMapper.map(account, LoginResponse.class))
                 .map(loginResponse -> loginResponse.password(null));
     }
 
@@ -62,16 +63,23 @@ public class LoginServiceImpl implements LoginService {
                 .username(registerRequest.getUsername())
                 .password(bCryptPasswordEncoder.encode(registerRequest.getPassword()))
                 .role(Constants.ROLE.EMPLOYEE);
+        accountCrudService.save(account);
 
-        return Optional.of(modelMapper.map(accountCrudService.save(account), AccountDTO.class));
+        return Optional.of(modelMapper.map(account, AccountDTO.class));
     }
 
     private void validateRegister(RegisterRequest registerRequest) {
-        validateUsernamePassword(registerRequest.getUsername(), registerRequest.getPassword());
+        validateUsernamePassword(
+                registerRequest.getUsername(),
+                registerRequest.getPassword()
+        );
     }
 
     private void validateLogin(LoginRequest loginRequest) {
-        validateUsernamePassword(loginRequest.getUsername(), loginRequest.getPassword());
+        validateUsernamePassword(
+                loginRequest.getUsername(),
+                loginRequest.getPassword()
+        );
     }
 
     private void validateUsernamePassword(String username, String password) {

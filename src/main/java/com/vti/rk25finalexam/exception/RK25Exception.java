@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @EqualsAndHashCode(callSuper = true)
-@Data
+
 @NoArgsConstructor
 public class RK25Exception
         extends RuntimeException
@@ -16,5 +16,10 @@ public class RK25Exception
     public RK25Exception rk25Error(Rk25Error rk25Error) {
         this.rk25Error = rk25Error;
         return this;
+    }
+
+    @Override
+    public Rk25Error getRk25Error() {
+        return rk25Error;
     }
 }

@@ -41,6 +41,18 @@ public class Account extends CommonEntity {
     @JoinColumn(name = "department_id")
     private Department department;
 
+//    @ManyToOne
+//    @JoinColumn(name = "role_id")
+//    private Role role1;
+//
+//    public Role getRole1() {
+//        return role1;
+//    }
+//
+//    public void setRole1(Role role1) {
+//        this.role1 = role1;
+//    }
+
     public Account id(Integer id) {
         this.id = id;
         return this;

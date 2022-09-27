@@ -38,7 +38,9 @@ public class AccountCrudServiceImpl implements AccountCrudService {
     @Override
     public Page<Account> findAllByCriteria(AccountCriteria criteria, Pageable pageable) {
         Specification<Account> spec = buildWhere(criteria);
+        
         return accountRepository.findAll(spec, pageable);
+
     }
 
     @Override

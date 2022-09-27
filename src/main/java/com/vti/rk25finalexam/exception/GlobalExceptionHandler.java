@@ -50,7 +50,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             RK25Exception ex,
             WebRequest webRequest
     ) {
-
         Error error = new Error()
                 .errorCode(ex.getRk25Error().getCode())
                 .errorStatus("400")
@@ -65,5 +64,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 .status(HttpStatus.BAD_REQUEST)
                 .body(error);
     }
+
 
 }

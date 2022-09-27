@@ -17,6 +17,8 @@ public interface AccountRepository extends
 
     Optional<Account> findByUsername(String username);
 
+    Optional<Account> findById(Integer id);
+
     @Query("select a from Account a where a.firstName = ?1 and a.lastName = ?2")
     List<Account> timTheoFirstnameLastname(String firstname, String lastname);
 }

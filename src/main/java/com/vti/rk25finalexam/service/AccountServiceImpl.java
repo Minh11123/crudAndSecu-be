@@ -61,6 +61,7 @@ public class AccountServiceImpl implements AccountService {
         //           nếu departmentId != null -> update department mới cho account
         // nếu không có account ->  return null;
 
+
         return getOne(id)
                 .map(account -> modelMapper.map(accountUpdateDTO, Account.class))
                 .map(account -> account.id(id))
@@ -75,7 +76,10 @@ public class AccountServiceImpl implements AccountService {
                 })
                 .map(accountCrudService::save)
                 .map(account -> modelMapper.map(account, AccountDTO.class))
-                .orElse(null);
+                .orElseThrow(() -> new RK25Exception()
+                        .rk25Error(new Rk25Error()
+                                .code("account.accountId.isNotExisted")
+                                .param(accountUpdateDTO.getDepartmentId())));
     }
 
     @Override
@@ -96,7 +100,6 @@ public class AccountServiceImpl implements AccountService {
                 .stream()
                 .map(account -> modelMapper.map(account, AccountDTO.class))
                 .collect(Collectors.toList());
-
         return new PageImpl<>(accountDtoList, pageable, page.getTotalElements());
     }
 

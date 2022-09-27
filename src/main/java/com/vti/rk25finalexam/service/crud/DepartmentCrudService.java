@@ -18,9 +18,9 @@ public interface DepartmentCrudService {
 
     Page<Department> findAllByCriteria(DepartmentCriteria criteria, Pageable pageable);
 
-    Department delete(Integer id);
-
     Department save(Department department);
 
     Optional<Department> findByName(String username);
+
+    Optional<Department> deleteById(Integer id);
 }

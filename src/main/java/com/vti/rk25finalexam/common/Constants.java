@@ -20,6 +20,13 @@ public class Constants {
         String LAST_NAME = "lastName";
         String ROLE = "role";
     }
+    public interface DEPARTMENT{
+        String ID = "id";
+        String NAME = "name";
+        String TOTAL_MEMBER = "total_member";
+        String TYPE = "type";
+        String CREATE_DATE = "createDate";
+    }
 
 
     public interface OPERATOR {

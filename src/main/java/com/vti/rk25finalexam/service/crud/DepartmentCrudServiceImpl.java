@@ -44,20 +44,23 @@ public class DepartmentCrudServiceImpl implements DepartmentCrudService {
         return deptRepo.findAll(spec, pageable);
     }
 
-    @Override
-    public Department delete(Integer id) {
-        return null;
-    }
+
 
     @Override
     public Department save(Department department) {
-        return null;
+        return deptRepo.save(department);
     }
 
     @Override
-    public Optional<Department> findByName(String username) {
-        return Optional.empty();
+    public Optional<Department> findByName(String name) {
+        return deptRepo.findDepartmentByName(name);
     }
+
+    @Override
+    public Optional<Department> deleteById(Integer id) {
+        return deptRepo.deleteDepartmentById(id);
+    }
+
     private Specification<Department> buildWhere(DepartmentCriteria criteria) {
         Specification<Department> spec = Specification.where(null);
 
@@ -79,9 +82,14 @@ public class DepartmentCrudServiceImpl implements DepartmentCrudService {
         if (criteria.getSearch() != null) {
             Specification<Department> orSpec = Specification.where(null);
             orSpec = orSpec
-                    .or(queryService.buildStringFilter(Constants.DEPARTMENT.TOTAL_MEMBER, criteria.getSearch()))
                     .or(queryService.buildStringFilter(Constants.DEPARTMENT.NAME, criteria.getSearch()))
                     .or(queryService.buildStringFilter(Constants.DEPARTMENT.TYPE, criteria.getSearch()));
+            if (Utils.checkStringAsDigit(criteria.getSearch().getContains())) {
+                Integer searchValue = Integer.valueOf(criteria.getSearch().getContains());
+                IntegerFilter integerFilter = new IntegerFilter();
+                integerFilter.setEquals(searchValue);
+                orSpec.or(queryService.buildIntegerFilter(Constants.ACCOUNT.ID, integerFilter));
+            }
             spec = spec.and(orSpec);
         }
         return spec;

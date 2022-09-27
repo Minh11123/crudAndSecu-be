@@ -24,7 +24,9 @@ public class AuthenticationController {
 
     @PostMapping("/auth/register")
     ResponseEntity<Optional<AccountDTO>> login(@RequestBody RegisterRequest registerRequest) {
-        return ResponseEntity.ok().body(loginService.register(registerRequest));
+        return ResponseEntity
+                .ok()
+                .body(loginService.register(registerRequest));
     }
 
     @PostMapping("/auth/login")
